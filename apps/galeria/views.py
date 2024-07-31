@@ -36,7 +36,7 @@ def nova_image(request):
     
     form = NovaImagemForms
     if request.method == 'POST':
-        form = NovaImagemForms(request.POST)
+        form = NovaImagemForms(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Nova imagem salva!')
