@@ -6,6 +6,12 @@ class NovaImagemForms(forms.ModelForm):
     class Meta:
         model = Fotografia
         exclude = ['publicada',]
+        labels = {
+            'descricao': 'Descrição',
+            'data_foto': 'Data de Registro',
+            'usuario': 'Usuário',
+            
+        }
         
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control'}),
@@ -13,7 +19,7 @@ class NovaImagemForms(forms.ModelForm):
             'categoria': forms.Select(attrs={'class': 'form-control'}),
             'descricao': forms.Textarea(attrs={'class': 'form-control'}),
             'foto': forms.FileInput(attrs={'class': 'form-control'}),
-            'data_fotografia': forms.DateInput(
+            'data_foto': forms.DateInput(
                 format = '%d/%m/%Y',
                 attrs={
                     'type': 'date',

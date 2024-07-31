@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Fotografia
+from .forms import NovaImagemForms
 
 def index(request):
     if not request.user.is_authenticated:
@@ -29,7 +30,19 @@ def buscar(request):
     return render(request, 'galeria/buscar.html', {'cards': fotografias})
 
 def nova_image(request):
-    return render(request, 'galeria/nova_imagem.html')
+    if not request.user.is_authenticated:
+        messages.error(request, 'Efetue Login para ter acesso')
+        return redirect('login')
+    
+    form = NovaImagemForms
+    if request.method == 'POST':
+        form = NovaImagemForms(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Nova imagem salva!')
+            return redirect('index')
+    
+    return render(request, 'galeria/nova_imagem.html', {'form': form})
 
 def editar_image(request):
     pass
