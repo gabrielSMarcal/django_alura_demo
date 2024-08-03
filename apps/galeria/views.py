@@ -68,3 +68,4 @@ def deletar_imagem(request, foto_id):
 def filtro(request, categoria):
     fotografias = Fotografia.objects.order_by('-data_foto').filter(publicada=True, categoria=categoria)
     return render(request, 'galeria/index.html', {'cards': fotografias})
+
